@@ -1,0 +1,22 @@
+.name-label {
+  font-weight: bold;
+}
+
+.name-label.GREEN {
+  color: #27ae60;
+}
+.name-label.BLUE {
+  color: #2980b9;
+}
+.name-label.ORANGE {
+  color: #d35400;
+}
+.name-label.YELLOW {
+  color: #f39c12;
+}
+.name-label.RED {
+  color: #c0392b;
+}
+.name-label.PURPLE {
+  color: #8e44ad;
+}

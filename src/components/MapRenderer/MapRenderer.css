@@ -1,0 +1,92 @@
+.map-container {
+  position: relative;
+  border: 1px solid black;
+  background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+  min-width: 1024px;
+  max-width: 2000px;
+}
+
+path {
+  z-index: 10;
+  cursor: pointer;
+  stroke-width: 2px;
+  position: relative;
+  fill-opacity: 1;
+  fill: url(#RadialGradientGray);
+  stroke: #5e696a;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+path:hover {
+  fill: #bdc3c7;
+}
+
+path.BLUE {
+  fill: url(#RadialGradientBlue);
+  stroke: #2980b9;
+}
+path.BLUE:hover {
+  fill: #a7d3ef;
+}
+
+path.GREEN {
+  fill: url(#RadialGradientGreen);
+  stroke: #27ae60;
+}
+path.GREEN:hover {
+  fill: #9ae8bb;
+}
+
+path.ORANGE {
+  fill: url(#RadialGradientOrange);
+  stroke: #d35400;
+}
+path.ORANGE:hover {
+  fill: #f4c59c;
+}
+
+path.PURPLE {
+  fill: url(#RadialGradientPurple);
+  stroke: #8e44ad;
+}
+path.PURPLE:hover {
+  fill: #d4b7df;
+}
+
+path.YELLOW {
+  fill: url(#RadialGradientYellow);
+  stroke: #e8930c;
+}
+path.YELLOW:hover {
+  fill: #f9e89f;
+}
+
+path.RED {
+  fill: url(#RadialGradientRed);
+  stroke: #c0392b;
+}
+path.RED:hover {
+  fill: #f6bbb5;
+}
+
+@keyframes ANIMATED_STROKE_DASH_ARRAY {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 100;
+  }
+}
+
+path.selected {
+  stroke: white;
+  stroke-width: 3px;
+  stroke-dasharray: 5;
+  animation: ANIMATED_STROKE_DASH_ARRAY 4s infinite;
+  animation-timing-function: linear;
+}
