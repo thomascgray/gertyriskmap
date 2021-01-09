@@ -1,15 +1,77 @@
 import React from "react";
+import "./MapRenderer.css";
+import { UnitIndicator } from "../UnitIndicator/UnitIndicator";
+import { IMapPlayerData, ITerritoryColourMap } from "../../types";
 
 export interface IMapRendererProps {
-  showUnitIndicators: boolean;
+  playerData: IMapPlayerData;
   mapData: any;
+  showUnitIndicators: boolean;
+  handleOnClickTerritory: (territoryId: string) => void;
+  handleMouseEnterTerritory: (territoryId: string) => void;
+  handleMouseExitTerritory: (territoryId: string) => void;
+  unitIndicatorPositions: any;
+  selectionIds: string[];
 }
 
 export const MapRenderer = (props: IMapRendererProps) => {
-  const TerritoryMarkup = Object.keys(props.mapData.territories).map();
+  let UnitIndicatorMarkup = null;
+  let territoryColourMap: ITerritoryColourMap = {};
+
+  const { selectionIds = [] } = props;
+
+  if (props.playerData) {
+    UnitIndicatorMarkup = Object.keys(props.playerData).map((playerName) => {
+      const player = props.playerData[playerName];
+
+      return Object.keys(player.territories).map((territoryName) => {
+        const territory = player.territories[territoryName];
+
+        return (
+          <UnitIndicator
+            key={territoryName}
+            colour={player.color}
+            territory={territoryName}
+            // @ts-ignore
+            top={props.unitIndicatorPositions[territoryName][0]}
+            // @ts-ignore
+            left={props.unitIndicatorPositions[territoryName][1]}
+            count={territory.armyCount}
+          />
+        );
+      });
+    });
+
+    Object.keys(props.playerData).forEach((playerName) => {
+      const player = props.playerData[playerName];
+
+      Object.keys(player.territories).forEach((territoryName) => {
+        territoryColourMap[territoryName] = player.color;
+      });
+    });
+  }
+
+  const TerritoryMarkup = Object.keys(props.mapData.territories).map(
+    (territoryId) => {
+      const territoryData = props.mapData.territories[territoryId];
+      return (
+        <path
+          className={`country ${territoryData.group} ${
+            territoryColourMap[territoryId] || ""
+          } ${selectionIds.includes(territoryId) ? "selected" : ""}`}
+          onClick={() => props.handleOnClickTerritory(territoryId)}
+          onMouseEnter={() => props.handleMouseEnterTerritory(territoryId)}
+          onMouseLeave={() => props.handleMouseExitTerritory(territoryId)}
+          id={territoryId}
+          d={territoryData.d}
+        />
+      );
+    }
+  );
 
   return (
-    <div className="world-map">
+    <div className="map-container">
+      {props.showUnitIndicators && UnitIndicatorMarkup}
       <svg id="GameMap" width="100%" viewBox="0 0 1024 660">
         <defs>
           <radialGradient id="RadialGradientBlue">
@@ -41,6 +103,8 @@ export const MapRenderer = (props: IMapRendererProps) => {
             <stop offset="100%" stopColor="#768485" />
           </radialGradient>
         </defs>
+
+        {TerritoryMarkup}
       </svg>
     </div>
   );

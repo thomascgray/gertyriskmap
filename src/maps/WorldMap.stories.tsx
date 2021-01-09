@@ -114,8 +114,8 @@ WithSeveralPlayerUnits.args = {
   },
 };
 
-export const UnitsInEveryCountry = Template.bind({});
-UnitsInEveryCountry.args = {
+export const UnitsInEveryCountryAnd3TerritoriesSelected = Template.bind({});
+UnitsInEveryCountryAnd3TerritoriesSelected.args = {
   handleMouseEnterTerritory: () => {},
   handleMouseExitTerritory: () => {},
   handleOnClickTerritory: (territoryId: string) => {
@@ -185,17 +185,14 @@ UnitsInEveryCountry.args = {
   },
 };
 
-export const WithOnePlayerMultipleTerritoriesSelectionHighlighted = Template.bind(
-  {}
-);
-WithOnePlayerMultipleTerritoriesSelectionHighlighted.args = {
+export const OneOwnedTerritorySelected = Template.bind({});
+OneOwnedTerritorySelected.args = {
   handleMouseEnterTerritory: () => {},
   handleMouseExitTerritory: () => {},
   handleOnClickTerritory: (territoryId: string) => {
     alert(territoryId);
   },
   showUnitIndicators: true,
-
   selectionIds: ["Brazil"],
   playerData: {
     "miss alice": {
