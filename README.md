@@ -10,11 +10,15 @@ Very WIP.
 
 `npm install`
 
-Probably best to look at the storybook first:
+---
+
+Probably best to look at the Storybook first:
 
 `npm run storybook`
 
-This will show you the individual components in use. Have a browse under "MAPS > World Map" to see the familiar RISK "board" in different states.
+The Storybook will run on http://localhost:6006 by default. Have a browse under "MAPS > World Map" to see the familiar RISK "board" in different states.
+
+---
 
 To play around with the game itself:
 
