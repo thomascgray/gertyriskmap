@@ -12,6 +12,7 @@ export interface IMapRendererProps {
   handleMouseExitTerritory: (territoryId: string) => void;
   unitIndicatorPositions: any;
   selectionIds: string[];
+  selectionColour?: string;
 }
 
 export const MapRenderer = (props: IMapRendererProps) => {
@@ -51,11 +52,17 @@ export const MapRenderer = (props: IMapRendererProps) => {
     });
   }
 
-  const TerritoryMarkup = Object.keys(props.mapData.territories).map(
-    (territoryId) => {
+  const TerritoryMarkup = Object.keys(props.mapData.territories)
+    .filter((territoryId) => !props.selectionIds.includes(territoryId))
+    .map((territoryId) => {
       const territoryData = props.mapData.territories[territoryId];
       return (
         <path
+          style={{
+            stroke: selectionIds.includes(territoryId)
+              ? props.selectionColour
+              : "",
+          }}
           className={`country ${territoryData.group} ${
             territoryColourMap[territoryId] || ""
           } ${selectionIds.includes(territoryId) ? "selected" : ""}`}
@@ -66,8 +73,33 @@ export const MapRenderer = (props: IMapRendererProps) => {
           d={territoryData.d}
         />
       );
+    });
+
+  const SelectedTerritoryMarkup = props.selectionIds.map((territoryId) => {
+    const territoryData = props.mapData.territories[territoryId];
+
+    if (territoryData === undefined) {
+      return null;
     }
-  );
+
+    return (
+      <path
+        style={{
+          stroke: selectionIds.includes(territoryId)
+            ? props.selectionColour
+            : "",
+        }}
+        className={`country ${territoryData.group} ${
+          territoryColourMap[territoryId] || ""
+        } ${selectionIds.includes(territoryId) ? "selected" : ""}`}
+        onClick={() => props.handleOnClickTerritory(territoryId)}
+        onMouseEnter={() => props.handleMouseEnterTerritory(territoryId)}
+        onMouseLeave={() => props.handleMouseExitTerritory(territoryId)}
+        id={territoryId}
+        d={territoryData.d}
+      />
+    );
+  });
 
   return (
     <div className="map-container">
@@ -105,6 +137,7 @@ export const MapRenderer = (props: IMapRendererProps) => {
         </defs>
 
         {TerritoryMarkup}
+        {SelectedTerritoryMarkup}
       </svg>
     </div>
   );

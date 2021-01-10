@@ -41,6 +41,7 @@ export interface IMapProps {
   handleOnClickTerritory: (territoryId: string) => void;
   handleMouseEnterTerritory: (territoryId: string) => void;
   handleMouseExitTerritory: (territoryId: string) => void;
+  selectionColour?: string;
 }
 
 export interface IMapPlayerData {

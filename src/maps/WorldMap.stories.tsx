@@ -207,3 +207,51 @@ OneOwnedTerritorySelected.args = {
     },
   },
 };
+
+export const SameAsAboveButRedSelection = Template.bind({});
+SameAsAboveButRedSelection.args = {
+  handleMouseEnterTerritory: () => {},
+  handleMouseExitTerritory: () => {},
+  handleOnClickTerritory: (territoryId: string) => {
+    alert(territoryId);
+  },
+  selectionColour: "#e74c3c",
+  showUnitIndicators: true,
+  selectionIds: ["Brazil"],
+  playerData: {
+    "miss alice": {
+      name: "miss alice",
+      color: EPlayerColour.BLUE,
+      territories: {
+        Brazil: {
+          armyCount: 4,
+        },
+      },
+      armyPoolCount: 10,
+    },
+  },
+};
+
+export const SelectedTerritoriesAreRenderedLast = Template.bind({});
+SelectedTerritoriesAreRenderedLast.args = {
+  handleMouseEnterTerritory: () => {},
+  handleMouseExitTerritory: () => {},
+  handleOnClickTerritory: (territoryId: string) => {
+    alert(territoryId);
+  },
+  selectionColour: "#e74c3c",
+  showUnitIndicators: true,
+  selectionIds: ["Brazil"],
+  playerData: {
+    "miss alice": {
+      name: "miss alice",
+      color: EPlayerColour.BLUE,
+      territories: {
+        Brazil: {
+          armyCount: 4,
+        },
+      },
+      armyPoolCount: 10,
+    },
+  },
+};

@@ -36,6 +36,9 @@ export const App = (props: IAppProps) => {
   const [invadingFromTerritory, setInvadingFromTerritory] = useState<string>(
     ""
   );
+  const [canInvadeTerritories, setCanInvadeTerritories] = useState<string[]>(
+    []
+  );
 
   const currentPlayer = (): IPlayer => {
     return players[currentPlayerIndex];
@@ -43,7 +46,7 @@ export const App = (props: IAppProps) => {
 
   const handleOnClickTerritory = (territoryName: string) => {
     const isOwnedByCurrentPlayer =
-      playerMapData[currentPlayer().name].territories[territoryName] !==
+      playerMapData[currentPlayer().name]?.territories[territoryName] !==
       undefined;
 
     if (!isOwnedByCurrentPlayer) {
@@ -78,8 +81,19 @@ export const App = (props: IAppProps) => {
     setPlayerMapData(pmd);
   };
 
-  const handleInvadingSelectingFromTerritory = (territoryName: string) => {
-    setInvadingFromTerritory(territoryName);
+  const handleInvadingSelectingFromTerritory = (territoryId: string) => {
+    setInvadingFromTerritory(territoryId);
+
+    // get the connecting territories,
+
+    // @ts-ignore
+    const connectingTerritoryIds: string[] = connections[territoryId];
+
+    console.log("connectingTerritoryIds", connectingTerritoryIds);
+
+    if (connectingTerritoryIds && connectingTerritoryIds.length >= 1) {
+      setCanInvadeTerritories(connectingTerritoryIds);
+    }
   };
 
   const handleMouseEnterTerritory = (territoryId: string) => {
@@ -116,6 +130,7 @@ export const App = (props: IAppProps) => {
     setCurrentPlayerIndex(nextPlayerIndex);
     setCurrentGamePhase(EGamePhase.TURNS);
     setCurrentTurnPhase(ETurnPhase.REINFORCING);
+    setInvadingFromTerritory("");
   };
 
   // we turn the players into playerMapData
@@ -189,7 +204,7 @@ export const App = (props: IAppProps) => {
         <WorldMap
           playerData={playerMapData}
           showUnitIndicators={showUnitIndicators}
-          selectionIds={[invadingFromTerritory]}
+          selectionIds={canInvadeTerritories}
           handleOnClickTerritory={handleOnClickTerritory}
           handleMouseEnterTerritory={handleMouseEnterTerritory}
           handleMouseExitTerritory={handleMouseExitTerritory}

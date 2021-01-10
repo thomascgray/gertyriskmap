@@ -13,6 +13,7 @@ export const WorldMap = (props: IMapProps) => {
       selectionIds={props.selectionIds}
       unitIndicatorPositions={unitIndicatorPositions}
       playerData={props.playerData}
+      selectionColour={props.selectionColour}
       handleOnClickTerritory={props.handleOnClickTerritory}
       handleMouseEnterTerritory={props.handleMouseEnterTerritory}
       handleMouseExitTerritory={props.handleMouseExitTerritory}
